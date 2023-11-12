@@ -12,6 +12,7 @@
 ***********************************************************************/
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <cstring>
 #include <ctime>
 #include "Utils.h"
 using namespace std;
@@ -21,14 +22,19 @@ namespace sdds {
       m_testMode = testmode;
    }
    void Utils::alocpy(char*& destination, const char* source)
-   {
-       delete[] destination;
-       destination = nullptr;
-       if (source)
-       {
-           destination = new char[strlen(source) + 1];
-           strcpy(destination, source);
-       }
+   {     
+           
+           if (source)
+           {
+               delete[] destination;
+               destination = nullptr;
+               destination = new char[strlen(source) + 1];
+               strcpy(destination, source);
+           }
+           else
+           {
+               cout << "invalid Source!" << endl;
+           }
    }
     int Utils::getint(const char* prompt)
     {
@@ -41,12 +47,11 @@ namespace sdds {
             if (cin.fail())
                 {
                 cout << "Invalid Integer, retry: ";
-                cin.clear();
-                      
+                cin.clear();    
                 }
             else
                 {
-                    if (cin.peek() != '\n')// or cin.get() != '\n'
+                    if (cin.peek() != '\n')
                     {
                         cout << "Invalid Integer, retry: ";
                         cin.clear();
@@ -77,7 +82,7 @@ namespace sdds {
                    }
                    else
                    {
-                       cout << "Value out of range [min<=val<=max]: " << endl;
+                       cout << "Value out of range ["<< min <<" <= val <="<< max<<"]: " << endl;
                    }
                }
            }
